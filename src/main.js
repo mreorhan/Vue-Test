@@ -4,10 +4,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    count: 0,
     todos: [
       { id: 1, text: 'asasdf', done: true },
       { id: 2, text: 'asdk', done: false }
@@ -15,7 +16,7 @@ const store = new Vuex.Store({
   },
   getters: {
     doneTodos: state => {
-      return state.todos.filter(todo => todo.done);
+      return state.todos.filter(todo => todo.done)
     },
     doneTodosCount: (state, getters) => {
       return getters.doneTodos.length
@@ -26,13 +27,21 @@ const store = new Vuex.Store({
   }
 })
 
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
-  components: { App },
+  components: {
+    App
+  },
+  computed: {
+    doneTodosCount () {
+      return this.$store.getters.doneTodosCount
+    }
+  },
   template: '<App/>'
 })
+
+console.log(store.getters.getTodoById(1))
